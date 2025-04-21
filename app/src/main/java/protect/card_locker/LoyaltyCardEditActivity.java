@@ -47,6 +47,7 @@ import androidx.core.content.FileProvider;
 import androidx.exifinterface.media.ExifInterface;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.color.MaterialColors;
@@ -115,6 +116,7 @@ public class LoyaltyCardEditActivity extends CatimaAppCompatActivity implements 
 
     ImageView thumbnail;
     ImageView thumbnailEditIcon;
+    MaterialCardView thumbnailMat;
     EditText storeFieldEdit;
     EditText noteFieldEdit;
     ChipGroup groupsChips;
@@ -321,6 +323,7 @@ public class LoyaltyCardEditActivity extends CatimaAppCompatActivity implements 
 
         thumbnail = binding.thumbnail;
         thumbnailEditIcon = binding.thumbnailEditIcon;
+        thumbnailMat = binding.thumbnailMat;
         storeFieldEdit = binding.storeNameEdit;
         noteFieldEdit = binding.noteEdit;
         groupsChips = binding.groupChips;
@@ -871,17 +874,16 @@ public class LoyaltyCardEditActivity extends CatimaAppCompatActivity implements 
     }
 
     protected void setThumbnailImage(@Nullable Bitmap bitmap) {
+
         setCardImage(ImageLocationType.icon, thumbnail, bitmap, false);
 
         if (bitmap != null) {
             int headerColor = Utils.getHeaderColorFromImage(bitmap, Utils.getHeaderColor(this, viewModel.getLoyaltyCard()));
-
             setLoyaltyCardHeaderColor(headerColor);
-
             thumbnail.setBackgroundColor(Utils.needsDarkForeground(headerColor) ? Color.BLACK : Color.WHITE);
-
             thumbnailEditIcon.setBackgroundColor(Utils.needsDarkForeground(headerColor) ? Color.BLACK : Color.WHITE);
             thumbnailEditIcon.setColorFilter(Utils.needsDarkForeground(headerColor) ? Color.WHITE : Color.BLACK);
+            thumbnailMat.setRadius(45f);
         } else {
             generateIcon(storeFieldEdit.getText().toString().trim());
 
@@ -1200,6 +1202,19 @@ public class LoyaltyCardEditActivity extends CatimaAppCompatActivity implements 
                     dialog.show(getSupportFragmentManager(), "color-picker-dialog");
                     return null;
                 });
+
+                cardOptions.put("TEST!!", () -> {
+                    viewModel.getLoyaltyCard().isRounded = !viewModel.getLoyaltyCard().isRounded;
+
+                    if (viewModel.getLoyaltyCard().isRounded) {
+                        thumbnailMat.setRadius(45f);
+                    } else {
+                        thumbnailMat.setRadius(10f);
+                    }
+                    return null;
+                });
+
+
             }
 
             cardOptions.put(getString(R.string.takePhoto), () -> {

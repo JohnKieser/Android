@@ -18,6 +18,7 @@ public class LoyaltyCard {
     public int id;
     public String store;
     public String note;
+    public boolean isRounded = false;
     @Nullable
     public Date validFrom;
     @Nullable
