@@ -74,7 +74,7 @@ public class DatabaseTest {
         assertTrue(result);
         assertEquals(1, DBHelper.getLoyaltyCardCount(mDatabase));
 
-        result = DBHelper.updateLoyaltyCard(mDatabase, 1, "store1", "note1", null, null, new BigDecimal("10.00"), Currency.getInstance("EUR"), "cardId1", null, CatimaBarcode.fromBarcode(BarcodeFormat.AZTEC), DEFAULT_HEADER_COLOR, 0, null, 0);
+        result = DBHelper.updateLoyaltyCard(mDatabase, 1, "store1", "note1", null, null, new BigDecimal("10.00"), Currency.getInstance("EUR"), "cardId1", null, CatimaBarcode.fromBarcode(BarcodeFormat.AZTEC), DEFAULT_HEADER_COLOR,0, null, 0);
         assertTrue(result);
         assertEquals(1, DBHelper.getLoyaltyCardCount(mDatabase));
 
@@ -126,7 +126,7 @@ public class DatabaseTest {
         assertEquals(0, DBHelper.getLoyaltyCardCount(mDatabase));
 
         boolean result = DBHelper.updateLoyaltyCard(mDatabase, 1, "store1", "note1", null, null, new BigDecimal("0"), null, "cardId1",
-                null, CatimaBarcode.fromBarcode(BarcodeFormat.UPC_A), DEFAULT_HEADER_COLOR, 0, null, 0);
+                null, CatimaBarcode.fromBarcode(BarcodeFormat.UPC_A), DEFAULT_HEADER_COLOR,0, null, 0);
         assertEquals(false, result);
         assertEquals(0, DBHelper.getLoyaltyCardCount(mDatabase));
     }

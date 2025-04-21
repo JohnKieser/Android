@@ -34,6 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
         public static final String ORDER = "orderId";
     }
 
+    // TODO: add new ID value IS_ROUNDED = "isRounded"
     public static class LoyaltyCardDbIds {
         public static final String TABLE = "cards";
         public static final String ID = "_id";
@@ -89,6 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // TODO: have database table include IS_ROUNDED value as a INTEGER value that stores 0 = false, or 1 = true to represent a boolean
     @Override
     public void onCreate(SQLiteDatabase db) {
         // create table for card groups
@@ -126,6 +128,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 LoyaltyCardDbFTS.STORE + ", " + LoyaltyCardDbFTS.NOTE + ", " +
                 "tokenize=unicode61);");
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -385,6 +388,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 whereAttrs(LoyaltyCardDbFTS.ID), withArgs(id));
     }
 
+    // TODO: change insertLoyaltyCard() to put IS_ROUNDED as a saved/insertable value
     public static long insertLoyaltyCard(
             final SQLiteDatabase database, final String store, final String note, final Date validFrom,
             final Date expiry, final BigDecimal balance, final Currency balanceType, final String cardId,
@@ -418,6 +422,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return id;
     }
 
+    // TODO: change insertLoyaltyCard() to put IS_ROUNDED as a saved/insertable value
     public static long insertLoyaltyCard(
             final SQLiteDatabase database, final int id, final String store, final String note,
             final Date validFrom, final Date expiry, final BigDecimal balance,
@@ -453,6 +458,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return id;
     }
 
+    // TODO: change getUpdateLoyaltyCard() to include isRounded as a param that's saved
     public static boolean updateLoyaltyCard(
             SQLiteDatabase database, final int id, final String store, final String note,
             final Date validFrom, final Date expiry, final BigDecimal balance,

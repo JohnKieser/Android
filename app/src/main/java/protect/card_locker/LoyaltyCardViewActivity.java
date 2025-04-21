@@ -45,7 +45,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.BlendModeColorFilterCompat;
 import androidx.core.graphics.BlendModeCompat;
@@ -78,7 +77,6 @@ public class LoyaltyCardViewActivity extends CatimaAppCompatActivity implements 
 
     int loyaltyCardId;
     ArrayList<Integer> cardList;
-
     LoyaltyCard loyaltyCard;
     List<Group> loyaltyCardGroups;
     boolean rotationEnabled;
@@ -99,6 +97,8 @@ public class LoyaltyCardViewActivity extends CatimaAppCompatActivity implements 
     int mainImageIndex = 0;
     List<ImageType> imageTypes;
 
+    private static final float CIRCULAR_RADIUS_THUMBNAIL = 500f;
+    private static final float SQUARE_RADIUS_THUMBNAIL = 8f;
     static final String STATE_IMAGEINDEX = "imageIndex";
     static final String STATE_FULLSCREEN = "isFullscreen";
 
@@ -727,12 +727,14 @@ public class LoyaltyCardViewActivity extends CatimaAppCompatActivity implements 
         Bitmap icon = loyaltyCard.getImageThumbnail(this);
         Utils.setIconOrTextWithBackground(this, loyaltyCard, icon, binding.iconImage, binding.iconText, 1);
 
+        // TODO: uncomment once SQLDatabase work can be done to save isRounded boolean
+        /*
         if (loyaltyCard.isRounded) {
-            binding.iconHolder.setRadius(500f);
+            binding.iconHolder.setRadius(CIRCULAR_RADIUS_THUMBNAIL);
         } else {
-            binding.iconHolder.setRadius(8f);
+            binding.iconHolder.setRadius(SQUARE_RADIUS_THUMBNAIL);
         }
-
+        */
         // If the background is very bright, we should use dark icons
         backgroundNeedsDarkIcons = Utils.needsDarkForeground(backgroundHeaderColor);
 

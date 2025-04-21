@@ -93,7 +93,8 @@ public class LoyaltyCardEditActivity extends CatimaAppCompatActivity implements 
     private static final String TAG = "Catima";
     protected LoyaltyCardEditActivityViewModel viewModel;
     private LoyaltyCardEditActivityBinding binding;
-
+    private static final float CIRCULAR_RADIUS_EDIT_THUMBNAIL = 45f;
+    private static final float SQUARE_RADIUS_EDIT_THUMBNAIL = 10f;
     private static final String PICK_DATE_REQUEST_KEY = "pick_date_request";
     private static final String NEWLY_PICKED_DATE_ARGUMENT_KEY = "newly_picked_date";
 
@@ -883,7 +884,6 @@ public class LoyaltyCardEditActivity extends CatimaAppCompatActivity implements 
             thumbnail.setBackgroundColor(Utils.needsDarkForeground(headerColor) ? Color.BLACK : Color.WHITE);
             thumbnailEditIcon.setBackgroundColor(Utils.needsDarkForeground(headerColor) ? Color.BLACK : Color.WHITE);
             thumbnailEditIcon.setColorFilter(Utils.needsDarkForeground(headerColor) ? Color.WHITE : Color.BLACK);
-            thumbnailMat.setRadius(45f);
         } else {
             generateIcon(storeFieldEdit.getText().toString().trim());
 
@@ -1203,18 +1203,17 @@ public class LoyaltyCardEditActivity extends CatimaAppCompatActivity implements 
                     return null;
                 });
 
-                cardOptions.put("TEST!!", () -> {
+                // WIP feature. Only changes the edit thumbnail and not the view thumbnail
+                cardOptions.put(getString(R.string.switchThumbnailShape), () -> {
                     viewModel.getLoyaltyCard().isRounded = !viewModel.getLoyaltyCard().isRounded;
 
                     if (viewModel.getLoyaltyCard().isRounded) {
-                        thumbnailMat.setRadius(45f);
+                        thumbnailMat.setRadius(CIRCULAR_RADIUS_EDIT_THUMBNAIL);
                     } else {
-                        thumbnailMat.setRadius(10f);
+                        thumbnailMat.setRadius(SQUARE_RADIUS_EDIT_THUMBNAIL);
                     }
                     return null;
                 });
-
-
             }
 
             cardOptions.put(getString(R.string.takePhoto), () -> {
@@ -1490,6 +1489,8 @@ public class LoyaltyCardEditActivity extends CatimaAppCompatActivity implements 
             selectedGroups.add((Group) chip.getTag());
         }
 
+
+        // TODO: change getUpdateLoyaltyCard() to include isRounded as a param
         // Both update and new card save with lastUsed set to null
         // This makes the DBHelper set it to the current date
         // So that new and edited card are always on top when sorting by recently used
