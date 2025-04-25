@@ -3,21 +3,19 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
+
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+
     repositories {
         google()
         mavenCentral()
-        exclusiveContent {
-            forRepositories(maven("https://jitpack.io"))
-            filter {
-                // limit jitpack repository to these groups
-                includeGroup("com.github.yalantis")
-            }
-        }
+        maven { url = uri("https://jitpack.io") }
     }
 }
+
 rootProject.name = "Catima"
 include(":app")

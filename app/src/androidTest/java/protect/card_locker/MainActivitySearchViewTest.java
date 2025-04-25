@@ -64,4 +64,5 @@ public class MainActivitySearchViewTest {
         UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack();
     }
 
+
 }

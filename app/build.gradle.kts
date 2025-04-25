@@ -7,6 +7,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+
 spotbugs {
     ignoreFailures.set(false)
     setEffort("max")
@@ -30,7 +31,8 @@ android {
 
         resourceConfigurations += listOf("ar", "bg", "bn", "bn-rIN", "bs", "cs", "da", "de", "el-rGR", "en", "eo", "es", "es-rAR", "et", "fi", "fr", "gl", "he-rIL", "hi", "hr", "hu", "in-rID", "is", "it", "ja", "ko", "lt", "lv", "nb-rNO", "nl", "oc", "pl", "pt", "pt-rBR", "pt-rPT", "ro-rRO", "ru", "sk", "sl", "sr", "sv", "ta", "tr", "uk", "vi", "zh-rCN", "zh-rTW")
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "tools.fastlane.screengrab.ScreengrabTestRunner"
+
 
         buildConfigField("boolean", "showDonate", "true")
         buildConfigField("boolean", "showRateOnGooglePlay", "false")
@@ -119,7 +121,11 @@ dependencies {
     implementation("androidx.preference:preference:1.2.1")
     implementation("com.google.android.material:material:1.12.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
-
+    androidTestImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
+    androidTestImplementation("androidx.test:rules:1.6.1")
     // Third-party
     implementation("com.journeyapps:zxing-android-embedded:4.3.0@aar")
     implementation("com.github.yalantis:ucrop:2.2.10")
@@ -138,12 +144,25 @@ dependencies {
     testImplementation("junit:junit:$junitVersion")
     testImplementation("org.robolectric:robolectric:4.14.1")
 
+
+
     androidTestImplementation("androidx.test:core:$androidXTestVersion")
     androidTestImplementation("junit:junit:$junitVersion")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test:runner:$androidXTestVersion")
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.3.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+    androidTestImplementation("tools.fastlane:screengrab:2.0.0")
+    androidTestImplementation("com.jraska:falcon:2.2.0")
+    {
+        because("Needed by fastlane screengrab for screenshots")
+    }
+    androidTestImplementation("androidx.test:rules:1.5.0") {
+        because("ActivityTestRule lives here")
+    }
+
+
+
 }
 
 tasks.withType<SpotBugsTask>().configureEach {
