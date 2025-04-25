@@ -1,0 +1,17 @@
+name: Check app_name consistency
+
+on: [push, pull_request]
+
+jobs:
+  check-app-name:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Make script executable
+        run: chmod +x scripts/check_app_name.sh
+
+      - name: Run app_name check script
+        run: ./scripts/check_app_name.sh
